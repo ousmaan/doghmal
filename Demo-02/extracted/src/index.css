@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DOGHMAL DESIGN SYSTEM — "Charcoal & Aluminum"
+   Palette mirrors a Toyota sub-agent showroom: charcoal asphalt,
+   brushed aluminum, Toyota racing red, porcelain white.
+   ============================================================ */
+@theme {
+  --color-charcoal: #1a1a1a;
+  --color-ink: #232326;
+  --color-steel: #3a3a3f;
+  --color-alu: #f0f0f0;
+  --color-alu-deep: #e4e4e7;
+  --color-toyota: #eb0a1a;
+  --color-toyota-deep: #c40815;
+  --color-wa: #1fbd59;
+  --color-sand: #b9a98c;
+
+  --font-ar: "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-en: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 6px 24px -8px rgb(26 26 26 / 0.14), 0 2px 6px -2px rgb(26 26 26 / 0.06);
+  --shadow-pop: 0 18px 50px -12px rgb(26 26 26 / 0.30);
+  --shadow-red: 0 10px 30px -8px rgb(235 10 26 / 0.45);
+}
+
+html, body, #root { height: 100%; }
+body { margin: 0; background: #0c0c0e; -webkit-font-smoothing: antialiased; }
+
+/* ---------- Typography helpers ---------- */
+.font-ar { font-family: var(--font-ar); }
+.font-en { font-family: var(--font-en); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ---------- Scroll behaviour ---------- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.snapx { scroll-snap-type: x mandatory; }
+.snapx > * { scroll-snap-align: start; }
+.overscroll-contain { overscroll-behavior: contain; }
+
+/* ---------- Press feedback (mobile-app feel) ---------- */
+.press { transition: transform .16s cubic-bezier(.34,1.56,.64,1), opacity .16s ease, box-shadow .2s ease; }
+.press:active { transform: scale(.965); opacity: .92; }
+.press-soft:active { transform: scale(.985); opacity: .9; }
+
+/* ---------- Stack-navigation screen transitions ----------
+   Direction-aware: in RTL the "forward" motion enters from the
+   LEFT edge (mirrored iOS behaviour); in LTR from the RIGHT. */
+@keyframes screen-in-right { from { transform: translateX(102%); } to { transform: translateX(0); } }
+@keyframes screen-in-left  { from { transform: translateX(-102%); } to { transform: translateX(0); } }
+@keyframes screen-fade     { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
+
+[dir="ltr"] .nav-push  { animation: screen-in-right .42s cubic-bezier(.32,.72,.24,1) both; }
+[dir="ltr"] .nav-pop   { animation: screen-in-left  .42s cubic-bezier(.32,.72,.24,1) both; }
+[dir="rtl"] .nav-push  { animation: screen-in-left  .42s cubic-bezier(.32,.72,.24,1) both; }
+[dir="rtl"] .nav-pop   { animation: screen-in-right .42s cubic-bezier(.32,.72,.24,1) both; }
+.nav-tab { animation: screen-fade .3s ease both; }
+
+/* Wizard step drift — small lateral drift respects reading direction */
+@keyframes step-in-fwd { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }
+@keyframes step-in-bck { from { opacity: 0; transform: translateX(-26px); } to { opacity: 1; transform: none; } }
+[dir="ltr"] .step-fwd { animation: step-in-fwd .34s cubic-bezier(.3,.7,.3,1) both; }
+[dir="ltr"] .step-bck { animation: step-in-bck .34s cubic-bezier(.3,.7,.3,1) both; }
+[dir="rtl"] .step-fwd { animation: step-in-bck .34s cubic-bezier(.3,.7,.3,1) both; }
+[dir="rtl"] .step-bck { animation: step-in-fwd .34s cubic-bezier(.3,.7,.3,1) both; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .5s cubic-bezier(.2,.7,.3,1) both; }
+.rise-1 { animation-delay: .05s } .rise-2 { animation-delay: .12s } .rise-3 { animation-delay: .19s } .rise-4 { animation-delay: .26s }
+
+@keyframes pop-check { 0% { transform: scale(.4); opacity: 0 } 60% { transform: scale(1.08); opacity: 1 } 100% { transform: scale(1); opacity: 1 } }
+.pop-check { animation: pop-check .6s cubic-bezier(.34,1.56,.64,1) both; }
+
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+.ring-spinner {
+  width: 22px; height: 22px; border-radius: 999px;
+  border: 2.5px solid rgb(235 10 26 / .18); border-top-color: var(--color-toyota);
+  animation: ring-spin .7s linear infinite;
+}
+
+@keyframes shimmer { from { background-position: -200% 0 } to { background-position: 200% 0 } }
+.shimmer {
+  background: linear-gradient(100deg, #2a2a2e 35%, #3f3f45 50%, #2a2a2e 65%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes pulse-dot { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+@keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+.floaty { animation: floaty 5s ease-in-out infinite; }
+
+/* Mirrored icons: arrows/chevrons auto-flip in RTL */
+[dir="rtl"] .rtl-mirror { transform: scaleX(-1); }
+
+/* Brushed-aluminum hairline dividers */
+.hairline { background: linear-gradient(90deg, transparent, rgb(26 26 26 / .12), transparent); height: 1px; }
+
+/* Carbon mesh texture for charcoal surfaces */
+.carbon {
+  background-color: var(--color-charcoal);
+  background-image:
+    radial-gradient(rgb(255 255 255 / .045) 1px, transparent 1.4px);
+  background-size: 14px 14px;
+}
+
+/* Red line accent used under section titles */
+.rule-red { position: relative; }
+.rule-red::after {
+  content: ""; position: absolute; inset-inline-start: 0; bottom: -7px;
+  width: 26px; height: 3px; border-radius: 99px; background: var(--color-toyota);
+}
+
+/* Form fields (add-vehicle / guest identity) */
+.field {
+  width: 100%; height: 48px; border-radius: 16px; background: #fff;
+  padding-inline: 16px; font-size: 13px; font-weight: 700; color: var(--color-charcoal);
+  box-shadow: var(--shadow-card); outline: none; border: 1.5px solid transparent;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.field::placeholder { color: rgb(58 58 63 / .4); font-weight: 600; }
+.field:focus { border-color: rgb(235 10 26 / .35); }
+.field-error { border-color: var(--color-toyota) !important; background: rgb(235 10 26 / .04); }

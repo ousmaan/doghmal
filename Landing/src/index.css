@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* RTL support */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
