@@ -1,0 +1,7 @@
+The issue is likely the **Ionic React** preset. Your landing page is a plain Vite + React SPA (not Ionic), so:
+
+1. Change the Application Preset from "Ionic React" to **React** (or **Static** if available)
+2. Verify locally: run `npm run build` in the Landing folder - it should create a `dist/` folder with index.html
+3. Check Vercel build logs for errors after redeploying
+
+If "React" isn't in the preset list, select **Container** and set the build command to `npm run build` with output directory `dist`.
