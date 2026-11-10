@@ -79,11 +79,12 @@ function HomePage() {
 }
 
 function DemoPage({ demoPath }: { demoPath: string }) {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[#0a0a0c] p-6">
       <div className="flex items-center gap-4 mb-6">
         <button
-          onClick={() => {}}
+          onClick={() => navigate(-1)}
           className="text-[#b9bec7] hover:text-white"
           aria-label="Back"
         >
